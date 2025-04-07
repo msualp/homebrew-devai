@@ -1,0 +1,36 @@
+# Shell history, log helpers
+.history
+.lh
+*.log
+
+# macOS
+.DS_Store
+
+# Linux / general
+*~
+
+# IDE/editor artifacts
+*.swp
+*.swo
+*.bak
+*.tmp
+.vscode/
+.idea/
+
+# Archives / cache
+*.tar.gz
+*.zip
+*.tgz
+
+# GitHub CLI temp
+*.sha256
+
+# Custom scripts / personal notes
+notes.txt
+*.draft.*
+*.bak.*
+*.secret.*
+
+# Avoid accidentally tracking test files
+test.rb
+test.sh

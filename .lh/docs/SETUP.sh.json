@@ -1,0 +1,18 @@
+{
+    "sourceFile": "docs/SETUP.sh",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1743982227345,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1743982227345,
+            "name": "Commit-0",
+            "content": "# DevAIccelerate Homebrew Tap Setup Guide\n\nThis guide walks you through setting up your custom Homebrew tap so users can install the `devai` CLI via:\n\n```bash\nbrew tap msualp/devai\nbrew install devai\n```\n\n---\n\n## 🔧 Prerequisites\n- A GitHub account with a public repo: `msualp/homebrew-devai`\n- A tagged release (e.g. `v0.9.0`) in the main DevAIccelerate repo\n- A CLI file like `devai/bin/dai.sh` that can be installed as an executable\n\n---\n\n## 📦 1. Create Your Homebrew Tap Repo\n1. Go to https://github.com/new\n2. Name it exactly: `homebrew-devai`\n3. Make it public\n4. Clone it locally:\n```bash\ngit clone https://github.com/msualp/homebrew-devai.git\ncd homebrew-devai\nmkdir -p Formula\n```\n\n---\n\n## ✍️ 2. Create Your Formula File\nInside `Formula/`, create a file named `devai.rb`:\n\n```ruby\nclass Devai < Formula\n  desc \"DevAIccelerate CLI Toolkit for AI-powered developer workflows\"\n  homepage \"https://github.com/msualp/DevAIccelerate\"\n  url \"https://github.com/msualp/DevAIccelerate/archive/refs/tags/v0.9.0.tar.gz\"\n  sha256 \"REPLACE_WITH_SHA256\"\n  license \"MIT\"\n  version \"0.9.0\"\n\n  depends_on \"bash\"\n  depends_on \"gum\"\n  depends_on \"yq\"\n  depends_on \"go-task/tap/go-task\"\n\n  def install\n    bin.install \"devai/bin/dai.sh\" => \"dai\"\n  end\n\n  test do\n    system \"#{bin}/dai\", \"--version\"\n  end\nend\n```\n\n---\n\n## 🔢 3. Generate SHA256\n1. Download the tagged release archive:\n```bash\ncurl -L -o devai.tar.gz https://github.com/msualp/DevAIccelerate/archive/refs/tags/v0.9.0.tar.gz\n```\n2. Calculate its checksum:\n```bash\nshasum -a 256 devai.tar.gz\n```\n3. Replace the `sha256` field in your `devai.rb` with the result.\n\n---\n\n## 🚀 4. Push the Formula\n```bash\ngit add Formula/devai.rb\ngit commit -m \"Add initial devai formula\"\ngit push origin main\n```\n\n---\n\n## 🧪 5. Test the Tap & Installation\n```bash\nbrew untap msualp/devai 2>/dev/null\nbrew tap msualp/devai\nbrew install msualp/devai/devai\n```\n\n---\n\n## ✅ Done!\nYour users can now install DevAIccelerate CLI using Homebrew:\n```bash\nbrew tap msualp/devai\nbrew install devai\n```\n\n---\n\nNeed an automated GitHub Actions workflow for formula publishing? See `publish-brew-formula.yml` in `.github/workflows/` or reach out in Issues.\n\n"
+        }
+    ]
+}
